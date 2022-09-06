@@ -2,23 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Encontrar : MonoBehaviour
+public class ENCONTRAR : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
         
     }
+    public GameObject lista;
     bool inv = true;
-    public GameObject listado;
+
+
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            listado.SetActive(inv);
+            lista.SetActive(inv);
             inv = !inv;
         }
+
     }
+
+
 }

@@ -9,6 +9,7 @@ public class GrabingObjects : MonoBehaviour
 
     GameObject pickableInRange;
     public Text tecla;
+    bool canopen = false;
 
     [SerializeField] GameObject[] objetos;
 
@@ -39,8 +40,10 @@ public class GrabingObjects : MonoBehaviour
 
             }
             
-            
         }
+        if ()
+
+        if (Input.GetKeyDown(KeyCode.Q) && inRange && canopen)
 
         if (inRange)
         {
@@ -61,6 +64,11 @@ public class GrabingObjects : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
             if (hit.collider.gameObject.CompareTag("pickable"))
+            {
+                inRange = true;
+                pickableInRange = hit.collider.gameObject;
+            }
+            if (hit.collider.gameObject.CompareTag("open"))
             {
                 inRange = true;
                 pickableInRange = hit.collider.gameObject;

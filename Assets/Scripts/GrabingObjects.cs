@@ -12,6 +12,7 @@ public class GrabingObjects : MonoBehaviour
     bool canopen = false;
 
     [SerializeField] GameObject[] objetos;
+    public GameObject netbook;
 
     // Update is called once per frame
     void Update()
@@ -26,7 +27,7 @@ public class GrabingObjects : MonoBehaviour
                 if (objetos[i] == null)
             
                 {
-                objetos[i] = pickableInRange;
+                 objetos[i] = pickableInRange;
                     break;
             
                 }
@@ -39,11 +40,25 @@ public class GrabingObjects : MonoBehaviour
                 }
 
             }
+
+            for(int e = 0; e <objetos.Length; e++)
+            {
+                if (objetos[e].name == "llave")
+                {
+                    canopen = true;
+                    break;
+                }
+                
+            }
+            
             
         }
-        if ()
+        
 
         if (Input.GetKeyDown(KeyCode.Q) && inRange && canopen)
+        {
+            netbook.SetActive(true);
+        }
 
         if (inRange)
         {

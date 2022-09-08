@@ -10,6 +10,8 @@ public class GrabingObjects : MonoBehaviour
     GameObject pickableInRange;
     public Text tecla;
     bool canopen = false;
+    int contador = 0;
+    bool EXIT;
 
     [SerializeField] GameObject[] objetos;
     public GameObject netbook;
@@ -17,9 +19,16 @@ public class GrabingObjects : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (contador == 5)
+        {
+            EXIT = true;
+        }
         if (Input.GetKeyDown(KeyCode.Q) && inRange)
         {
             pickableInRange.SetActive(false);
+
+            pickableInRange.GetComponent<pickable>().tick.SetActive(true);
+            contador++;
 
             int i = 0;
             while (i < objetos.Length)
@@ -53,8 +62,11 @@ public class GrabingObjects : MonoBehaviour
             
             
         }
-        
 
+        if (Input.GetKeyDown(KeyCode.Q) && inRange && EXIT)
+        {
+           pickableInRange.SetActive(false);
+        }
         if (Input.GetKeyDown(KeyCode.Q) && inRange && canopen)
         {
             netbook.SetActive(true);
@@ -68,6 +80,8 @@ public class GrabingObjects : MonoBehaviour
         {
             tecla.text = "";
         }
+
+
     }
 
     void FixedUpdate()
@@ -87,6 +101,13 @@ public class GrabingObjects : MonoBehaviour
             {
                 inRange = true;
                 pickableInRange = hit.collider.gameObject;
+
+            }
+            if (hit.collider.gameObject.CompareTag("exit"))
+            {
+                inRange = true;
+                pickableInRange = hit.collider.gameObject;
+
             }
 
         }

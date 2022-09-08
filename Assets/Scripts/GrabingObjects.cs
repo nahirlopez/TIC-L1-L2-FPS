@@ -7,13 +7,13 @@ public class GrabingObjects : MonoBehaviour
 {
     bool inRange = false;
 
-    GameObject pickableInRange;
+    public GameObject pickableInRange;
     public Text tecla;
     bool canopen = false;
     int contador = 0;
     bool EXIT;
 
-    [SerializeField] GameObject[] objetos;
+    public GameObject[] objetos;
     public GameObject netbook;
 
     // Update is called once per frame
@@ -23,11 +23,16 @@ public class GrabingObjects : MonoBehaviour
         {
             EXIT = true;
         }
-        if (Input.GetKeyDown(KeyCode.Q) && inRange)
+        if (Input.GetKeyDown(KeyCode.R) && inRange)
         {
             pickableInRange.SetActive(false);
 
-            pickableInRange.GetComponent<pickable>().tick.SetActive(true);
+            pickable pickablescript = pickableInRange.GetComponent<pickable>();
+
+            if (pickablescript)
+            {
+                pickablescript.tick.SetActive(true);
+            }
             contador++;
 
             int i = 0;
@@ -50,31 +55,31 @@ public class GrabingObjects : MonoBehaviour
 
             }
 
-            for(int e = 0; e <objetos.Length; e++)
+            for (int e = 0; e < objetos.Length; e++)
             {
-                if (objetos[e].name == "llave")
+                if (objetos[e] && objetos[e].name == "llave")
                 {
                     canopen = true;
                     break;
                 }
-                
-            }
-            
-            
-        }
 
-        if (Input.GetKeyDown(KeyCode.Q) && inRange && EXIT)
+            }
+
+
+        }
+       
+        if (Input.GetKeyDown(KeyCode.R) && EXIT)
         {
            pickableInRange.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Q) && inRange && canopen)
+        if (Input.GetKeyDown(KeyCode.R) && canopen)
         {
             netbook.SetActive(true);
         }
 
-        if (inRange)
+        if (inRange || EXIT || canopen)
         {
-            tecla.text = "'Q' para interactuar";
+            tecla.text = "'R' para interactuar";
         }
         else
         {
@@ -99,13 +104,13 @@ public class GrabingObjects : MonoBehaviour
             }
             if (hit.collider.gameObject.CompareTag("open"))
             {
-                inRange = true;
+                
                 pickableInRange = hit.collider.gameObject;
 
             }
             if (hit.collider.gameObject.CompareTag("exit"))
             {
-                inRange = true;
+                
                 pickableInRange = hit.collider.gameObject;
 
             }

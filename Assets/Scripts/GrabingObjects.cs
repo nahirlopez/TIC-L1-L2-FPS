@@ -72,12 +72,16 @@ public class GrabingObjects : MonoBehaviour
         {
            pickableInRange.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.R) && canopen)
+        if (canopen && contador != 5)
         {
             netbook.SetActive(true);
         }
+        if (Input.GetKeyDown(KeyCode.R) && canopen)
+        {
+            netbook.SetActive(false);
+        }
 
-        if (inRange || EXIT || canopen)
+        if (inRange || EXIT )
         {
             tecla.text = "'R' para interactuar";
         }

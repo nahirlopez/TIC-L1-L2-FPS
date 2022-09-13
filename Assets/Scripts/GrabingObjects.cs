@@ -12,6 +12,7 @@ public class GrabingObjects : MonoBehaviour
     bool canopen = false;
     int contador = 0;
     bool EXIT;
+    bool isopen;
 
     public GameObject[] objetos;
     public GameObject netbook;
@@ -30,8 +31,7 @@ public class GrabingObjects : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && inRange)
         {
-            if (pickableInRange.CompareTag("pickable") && (Input.GetKeyDown(KeyCode.R)))
-            {
+           
                pickableInRange.SetActive(false);
                 
 
@@ -75,23 +75,30 @@ public class GrabingObjects : MonoBehaviour
 
             }
                 pickableInRange = null;
-            }
+            inRange = false;
            
 
-            if (pickableInRange.CompareTag("open") && (Input.GetKeyDown(KeyCode.R) && canopen))
+            
+        }
+
+        if (Input.GetKeyDown(KeyCode.R) && canopen)
+        {
+            if (isopen && (Input.GetKeyDown(KeyCode.R) && canopen))
             {
                 netbook.SetActive(true);
                 canopen = false;
+                
                 pickableInRange = null;
             }
         }
 
-        
-      
-       
-        if (Input.GetKeyDown(KeyCode.R) && EXIT)
+
+
+
+            if (Input.GetKeyDown(KeyCode.R) && EXIT && pickableInRange)
         {
            pickableInRange.SetActive(false);
+            contador = 0;
             pickableInRange = null;
         }
         
@@ -117,17 +124,21 @@ public class GrabingObjects : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("pickable"))
             {
                 inRange = true;
+                isopen = false;
                 pickableInRange = hit.collider.gameObject;
             }
             if (hit.collider.gameObject.CompareTag("open") )
             {
-                inRange = true;
+
+                isopen = true;
+                inRange = false;
                 pickableInRange = hit.collider.gameObject;
 
             }
             if (hit.collider.gameObject.CompareTag("exit") )
             {
                 inRange = false;
+                isopen = false;
                 pickableInRange = hit.collider.gameObject;
 
             }

@@ -16,6 +16,11 @@ public class GrabingObjects : MonoBehaviour
     public GameObject[] objetos;
     public GameObject netbook;
 
+    void Start()
+    {
+       
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -25,13 +30,17 @@ public class GrabingObjects : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R) && inRange)
         {
-            pickableInRange.SetActive(false);
+            if (pickableInRange.CompareTag("pickable") && (Input.GetKeyDown(KeyCode.R)))
+            {
+               pickableInRange.SetActive(false);
+                
 
             pickable pickablescript = pickableInRange.GetComponent<pickable>();
 
             if (pickablescript)
             {
                 pickablescript.tick.SetActive(true);
+                    Debug.Log("activado");
             }
             contador++;
 
@@ -39,21 +48,22 @@ public class GrabingObjects : MonoBehaviour
             while (i < objetos.Length)
             {
                 if (objetos[i] == null)
-            
+
                 {
-                 objetos[i] = pickableInRange;
+                    objetos[i] = pickableInRange;
                     break;
-            
+
                 }
-           
+
                 else
-           
+
                 {
-                i++;
-            
+                    i++;
+
                 }
 
             }
+           
 
             for (int e = 0; e < objetos.Length; e++)
             {
@@ -64,31 +74,34 @@ public class GrabingObjects : MonoBehaviour
                 }
 
             }
+                pickableInRange = null;
+            }
+           
 
-
+            if (pickableInRange.CompareTag("open") && (Input.GetKeyDown(KeyCode.R) && canopen))
+            {
+                netbook.SetActive(true);
+                canopen = false;
+                pickableInRange = null;
+            }
         }
+
+        
+      
        
         if (Input.GetKeyDown(KeyCode.R) && EXIT)
         {
            pickableInRange.SetActive(false);
+            pickableInRange = null;
         }
-        if (canopen && contador != 5)
-        {
-            netbook.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.R) && canopen)
-        {
-            netbook.SetActive(false);
-        }
+        
+       
 
-        if (inRange || EXIT )
+        if (pickableInRange )
         {
             tecla.text = "'R' para interactuar";
         }
-        else
-        {
-            tecla.text = "";
-        }
+        
 
 
     }
@@ -106,15 +119,15 @@ public class GrabingObjects : MonoBehaviour
                 inRange = true;
                 pickableInRange = hit.collider.gameObject;
             }
-            if (hit.collider.gameObject.CompareTag("open"))
+            if (hit.collider.gameObject.CompareTag("open") )
             {
-                
+                inRange = true;
                 pickableInRange = hit.collider.gameObject;
 
             }
-            if (hit.collider.gameObject.CompareTag("exit"))
+            if (hit.collider.gameObject.CompareTag("exit") )
             {
-                
+                inRange = false;
                 pickableInRange = hit.collider.gameObject;
 
             }
@@ -125,7 +138,8 @@ public class GrabingObjects : MonoBehaviour
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
             Debug.Log("Did not Hit");
             inRange = false;
-
+            pickableInRange = null;
+            tecla.text = "";
         }
     }
 }

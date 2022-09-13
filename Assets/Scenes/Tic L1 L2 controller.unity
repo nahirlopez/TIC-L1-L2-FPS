@@ -9133,7 +9133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ccb305c4d898740b95bfcf3ccce99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tick: {fileID: 1068353701}
+  tick: {fileID: 1517166827}
 --- !u!135 &1106984299
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12110,7 +12110,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1507141610}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1507141612
 Camera:
   m_ObjectHideFlags: 0
